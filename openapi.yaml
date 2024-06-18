@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Reqres - OpenAPI 3.0
+  version: 1.0.0
+servers:
+  - url: ' https://reqres.in/api'
+paths:
+  /register:
+    post:
+      tags:
+        - register
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+components:
+  schemas:
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          example: username
+        email:
+          type: string
+          example: john.doe@email.com
+        password:
+          type: string
+          example: password
+        object:
+          $ref: '#/components/schemas/InnerRequestObject'
+      additionalProperties: false
+    InnerRequestObject:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 305 Joe st
+        postcode:
+          type: number
+          example: 54679
+      additionalProperties: false
+    RegisterResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: string
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+security:
+  - openId: []
